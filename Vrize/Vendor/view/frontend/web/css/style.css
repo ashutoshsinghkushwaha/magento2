@@ -1,0 +1,26 @@
+.right{
+    float: right;
+}
+
+tr:nth-child(even) {
+    background-color: #f3f3f3;
+}
+.border-none{
+    border:none;
+}
+th {
+    background-color: #cfcfcf;
+}
+
+.action-col {
+    width: 35%;
+    text-align: center;
+}
+.modal-inner-wrap
+{
+    max-width: 40%;
+}
+
+.resource-list li{
+    list-style: none;
+}

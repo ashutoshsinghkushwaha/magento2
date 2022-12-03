@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">seller_menu_listing.seller_menu_listing_data_source</item>
+            <item name="deps" xsi:type="string">seller_menu_listing.seller_menu_listing_data_source</item>
+        </item>
+    </argument>
+
+    <settings>
+       
+        <spinner>seller_menu_listing</spinner>
+        <deps>
+            <dep>seller_menu_listing.seller_menu_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="seller_menu_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="dataScope" xsi:type="string">filters.store_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Vrize_Vendor::mycustom</aclResource>
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="seller_menu_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+     <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+          <columnsControls name="columns_controls"/>   
+         <!-- code  -->
+ <filters name="listing_filters">
+            <filterSelect name="store_id" provider="${ $.parentName }">
+                <settings>
+                    <options class="Magento\Store\Ui\Component\Listing\Column\Store\Options"/>
+                    <caption translate="true">All Store Views</caption>
+                    <label translate="true">Store View</label>
+                    <dataScope>store_id</dataScope>
+                </settings>
+            </filterSelect>
+        </filters>
+
+        <paging name="listing_paging"/>
+    <massaction name="listing_massaction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>
+                </item>
+            </argument>
+            <action name="enable">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">enable</item>
+                        <item name="label" xsi:type="string" translate="true">Approved</item>
+                        <item name="url" xsi:type="url" path="seller/candidate/massEnable"/>
+                    </item>
+                </argument>
+            </action>
+            <action name="disable">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">disable</item>
+                        <item name="label" xsi:type="string" translate="true">Disapproved</item>
+                        <item name="url" xsi:type="url" path="seller/candidate/massDisable"/>
+                    </item>
+                </argument>
+            </action>
+            
+         
+      
+        </massaction>
+
+    </listingToolbar> 
+    <columns name="seller_menu_listing">
+       
+        <selectionsColumn name="ids" sortOrder="10">
+            <settings>
+                 <indexField>entity_id</indexField> 
+            </settings>
+        </selectionsColumn>
+      
+
+   <column name="firstname" sortOrder="20">
+       <settings>
+            <filter>text</filter>  
+                <label translate="true">Name</label>
+            </settings>
+            </column>
+          <column name="email" sortOrder="30">
+            <settings>
+                  <filter>text</filter>  
+                <label translate="true">Email</label>
+            </settings>
+        </column>
+
+        <column name="telephone" sortOrder="40">
+            <settings>
+                 <filter>textRange</filter> 
+                <label translate="true">Phone</label>
+            </settings>
+        </column>
+
+        <column name="value"  sortOrder="60">
+           <argument name="data" xsi:type="array">
+               <item name="options" xsi:type="object">Vrize\Vendor\Model\Options</item>
+               <item name="config" xsi:type="array">
+                   <item name="filter" xsi:type="string">select</item>
+                   <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                   <item name="dataType" xsi:type="string">select</item>
+                   <item name="label" xsi:type="string" translate="true">Status</item>
+               </item>
+           </argument>
+       </column>
+    </columns>
+</listing>
+
+

@@ -1,0 +1,156 @@
+<?php
+$vendorVendorHelper = $this->helper('Vrize\Vendor\Helper\Vendor');
+$collection = $block->getCustomerCollection();
+$role = $block->getCustomerRole();
+$activeResources = $vendorVendorHelper->getRoleCollection();
+$resource=[];
+foreach ($activeResources as $activeResource) {
+    $resource[] = $activeResource['resource_id'];
+}
+?>
+<?php if (in_array('add_user', $resource) || $vendorVendorHelper->isAVendor()) { ?>
+<a   href="<?= $block->escapeUrl($block->getUrl('vendor/user/add')); ?>">
+    <button  class="action primary" >Add User</button><br><br>
+</a>
+<?php } ?>
+<table>
+    <thead>
+        <tr>
+            <th><?= $block->escapeHtmlAttr('Id'); ?></th>
+            <th><?= $block->escapeHtmlAttr('Name'); ?></th>
+            <th><?= $block->escapeHtmlAttr('Email'); ?></th>
+            <th><?= $block->escapeHtmlAttr('Phone'); ?></th>
+            <th><?= $block->escapeHtmlAttr('Role'); ?></th>
+            <th><?= $block->escapeHtmlAttr('Status'); ?></th>
+            <th colspan="4" class="action-col"><?= $block->escapeHtmlAttr('Action'); ?></th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($collection as $item): ?>
+            <?php $mapid = $block->getMappingId($item->getId());?>
+        <tr>
+            <td><?= $block->escapeHtmlAttr($item->getId()) ?></td>
+            <td><?= $block->escapeHtmlAttr($item->getName()) ?></td>
+            <td><?= $block->escapeHtmlAttr($item->getEmail()) ?></td>
+            <td><?= $block->escapeHtmlAttr($block->getDefaultAddress($item->getId())) ?></td>
+            <td><?= $block->getRoleName($mapid->getRoleId()) ?></td>
+            <td><?= ($block->escapeHtmlAttr($item->getApproveAccount())==1)?'Approved':'Not Approved' ?></td>   
+            <?php if (in_array('edit_user', $resource) || $vendorVendorHelper->isAVendor()) { ?>
+            <td>
+                <a href="<?= $block->getUrl('vendor/user/edit', ['_current' => true, '_use_rewrite' => true,
+                'id' => $item->getId()]); ?>" class="action primary">
+                    <?= $block->escapeHtmlAttr('Edit') ?>
+                </a>
+            </td>
+            <?php } ?>
+            <?php if (in_array('delete_user', $resource) || $vendorVendorHelper->isAVendor()) { ?>
+            <td>
+                <a href="<?= $block->getUrl('vendor/user/delete', ['_current' => true, '_use_rewrite' => true,
+                'id' => $item->getId()]); ?>" class="action primary deleteuser">
+                    <?= $block->escapeHtmlAttr('Delete') ?>
+                </a>
+            </td>
+            <?php } ?>
+            <?php if (in_array('assign_role_user', $resource) || $vendorVendorHelper->isAVendor()) { ?>
+            <td>
+                <a href="#" class="action primary role-popup" data-id="<?= $item->getId(); ?>"
+                data-mapid="<?= $mapid->getId(); ?>" data-roleid="<?= $mapid->getRoleId(); ?>">
+                    <?= $block->escapeHtmlAttr('Assign Role') ?>
+                </a>
+            </td>
+            <?php } ?>
+        
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+
+<div id="popup-modal" style="display:none;">
+    <form name="addData" method="post" id="addData" class="form"
+            action="<?= $block->getFormAction(); ?>"
+            data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+            data-mage-init='{"validation":{}}'>
+            <input type="hidden" name="user_id" id="user_id" value="">
+            <input type="hidden" name="id" id="id" value="">
+            <fieldset class="fieldset row">
+                <div class="fields col-md-6">
+                    <label class="label" for="title"><span><?= $block->escapeHtmlAttr(__('Role')) ?> :</span></label>
+                    <div class="control">
+                        <select name="role_id" id="role_id" class="validate-select required-entry">
+                            <option value=''><?= $block->escapeHtmlAttr(__('Please Select')) ?></option>
+                            <?php foreach ($role as $_data): ?>
+                                <option value="<?= $_data['role_id'] ?>"><?= $_data['role_name'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+    </form>
+</div>
+
+<script>
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal'
+        ],
+        function(
+            $,
+            modal
+        ) {
+            var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                title: 'Assign Role To User',
+                buttons: [{
+                    text: $.mage.__('Save'),
+                    class: 'action primary',
+                    click: function () {
+                        $("#addData").submit();
+                    }
+                },{
+                    text: $.mage.__('Cancel'),
+                    class: '',
+                    click: function () {
+                        this.closeModal();
+                    }
+                }]
+            };
+            $('#role_id').val();
+            var popup = modal(options, $('#popup-modal'));
+            $(".role-popup").on('click',function(){ 
+                $('#user_id').val($(this).attr("data-id"));
+                $('#id').val($(this).attr("data-mapid"));
+                $('select[name^="role_id"]').val($(this).attr("data-roleid"));
+                $("#popup-modal").modal("openModal");
+            });
+
+        }
+    );
+
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/confirm'
+    ],
+    function($, confirmation) {
+        $('.deleteuser').on('click', function (e){
+            e.preventDefault();
+            var url = $(this).attr("href");
+            confirmation({
+                title: 'Delete User',
+                content: 'Sure you want to delete this user?',
+                actions: {
+
+                    confirm: function () {
+                        window.location.href= url;
+                    },
+
+                    cancel: function () {
+                        return false;
+                    }
+                }
+            });
+        });
+    });
+</script>

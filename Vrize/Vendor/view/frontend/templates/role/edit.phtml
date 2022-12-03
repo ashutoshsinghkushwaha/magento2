@@ -1,0 +1,48 @@
+<?php
+    $collection = $block->getEditData();
+?>
+    <form name="editrole" method="post" id="editrole" class="form"
+    action="<?= $block->getFormAction(); ?>"
+            data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+            data-mage-init='{"validation":{}}'>
+            <input type="hidden" name="role_id" id="editId" value="<?= $collection['role_id']; ?>" />
+        <fieldset class="fieldset">
+            <legend class="legend"><span><?= $block->escapeHtmlAttr(__('Fill Details')) ?></span></legend>
+            <fieldset class="fieldset row">
+                <div class="fields col-md-6">
+
+                    <div class="field name required">
+                        <label class="label" for="title"><span><?= $block->
+                            escapeHtmlAttr(__('Role Name')) ?></span></label>
+                        <div class="control">
+                            <input name="role_name" id="role_name" title="role_name" 
+                            value="<?= $collection['role_name']; ?>" class="input-text" type="text" 
+                            data-validate="{required:true, 'validate-alphanum-with-spaces':true}">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </fieldset>
+        
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button type="submit" class="action submit primary" title="Save"><span><?= $block->
+                    escapeHtmlAttr(__('Save')) ?></span></button>
+            </div>
+
+            <div class="secondary">
+            <a href="<?=  $block->getUrl('vendor/role') ?>">
+                <button type="button" id="cancelbutton" title="Cancel">
+                    <span><?= $block->escapeHtmlAttr(__('Cancel')) ?></span>
+                </button>
+            </a>
+            </div>
+        </div>
+    </form>
+ 
+    <script>
+        $("#cancelbutton").click(function(event)
+        {
+            event.preventDefault();
+        });
+    </script>

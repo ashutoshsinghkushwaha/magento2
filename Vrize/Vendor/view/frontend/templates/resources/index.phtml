@@ -1,0 +1,102 @@
+
+<?php
+$selected= [] ;
+$collection = $block->getEditData();
+foreach ($collection as $resources) {
+    $selected[] = $resources['resource_id'];
+}
+?>
+<form name="addData" method="post" id="addData" class="form" action="<?= $block->getFormAction()?>"
+    data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+    data-mage-init='{"validation":{}}'>
+        <input type="hidden" name="role_id" id="role_id" value="<?= $block->getId(); ?>" />
+        <ul class="resource-list">
+            <li><input type="checkbox" id="all_user" name="resource[]" value="all_user" 
+            <?php if (in_array('all_user', $selected)) {echo"checked"; }?>> Manage User
+                <ul class="resource-list">
+                    <li><input type="checkbox" id="list_user" class="all_user" name="resource[]" value="list_user" 
+                    <?php if (in_array('list_user', $selected)) {echo"checked"; }?>
+                    > List User</li>
+                    <li><input type="checkbox" id="add_user" class="all_user" name="resource[]" value="add_user" 
+                    <?php if (in_array('add_user', $selected)) {echo"checked"; }?>
+                    > Add User</li>
+                    <li><input type="checkbox" id="edit_user" class="all_user" name="resource[]" value="edit_user" 
+                    <?php if (in_array('edit_user', $selected)) {echo"checked"; }?>
+                    > Edit User</li>
+                    <li><input type="checkbox" id="delete_user" class="all_user" name="resource[]" value="delete_user"
+                    <?php if (in_array('delete_user', $selected)) {echo"checked"; }?>
+                    > Delete User</li>
+                    <li>
+                        <input type="checkbox"id="assign_role_user" class="all_user" name="resource[]" 
+                        value="assign_role_user" <?php if (in_array('assign_role_user', $selected)) {echo"checked"; }?>>
+                        Assign Role To User
+                    </li>
+                </ul>
+            </li>
+            <li><input type="checkbox" id="all_role" name="resource[]" value="all_role" 
+            <?php if (in_array('all_role', $selected)) {echo"checked"; }?>> Manage User
+                <ul class="resource-list">
+                    <li><input type="checkbox" id="list_role" class="all_role" name="resource[]" value="list_role"
+                    <?php if (in_array('list_role', $selected)) {echo"checked"; }?>
+                    > List Role</li>
+                    <li><input type="checkbox" id="add_role" class="all_role" name="resource[]" value="add_role"
+                    <?php if (in_array('add_role', $selected)) {echo"checked"; }?>
+                    > Add Role</li>
+                    <li><input type="checkbox" id="edit_role" class="all_role" name="resource[]" value="edit_role"
+                    <?php if (in_array('edit_role', $selected)) {echo"checked"; }?>
+                    > Edit Role</li>
+                    <li><input type="checkbox" id="delete_role" class="all_role" name="resource[]" value="delete_role"
+                    <?php if (in_array('delete_role', $selected)) {echo"checked"; }?>
+                    > Delete Role</li>
+                    <li>
+                        <input type="checkbox" id="allocate_resource" class="all_role" name="resource[]" 
+                        value="allocate_resource" 
+                        <?php if (in_array('allocate_resource', $selected)) { echo"checked"; } ?>> Allocate Resource
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button type="submit" class="action submit primary" title="Save">
+                    <span><?= $block->escapeHtmlAttr(__('Save')) ?></span>
+                </button>
+            </div>
+            
+            <div class="secondary">
+                <a href="<?= $block->getUrl('vendor/role') ?>">
+                    <button type="button" id="cancelbutton" title="Cancel">
+                        <span><?= $block->escapeHtmlAttr(__('Cancel')) ?></span>
+                    </button>
+                </a>
+            </div>
+        </div>
+</form>
+<script>
+    require(['jquery', 'jquery/ui'], function($){ 
+        $("#all_user").click(function(){
+            $('.all_user').not(this).prop('checked', this.checked);
+        });
+        $('.all_user').click(function() {
+            if($(this).is(':checked'))
+            {
+                $('#all_user').prop('checked', this.checked);
+                $('#list_user').prop('checked', this.checked);
+            }
+               
+        });
+
+        $("#all_role").click(function(){
+            $('.all_role').not(this).prop('checked', this.checked);
+        });
+        $('.all_role').click(function() {
+            if($(this).is(':checked'))
+            {
+                $('#all_role').prop('checked', this.checked);
+                $('#list_role').prop('checked', this.checked);
+            }
+               
+        });
+        
+    });
+ </script>

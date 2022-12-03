@@ -1,0 +1,59 @@
+<?php
+/* @var $block \Vrize\Vendor\Block\Vendor\AccountDetailsSidebar */
+?>
+<?php
+$vendorVendorHelper = $this->helper('Vrize\Vendor\Helper\Vendor');
+$magentoCurrentUrl = $escaper->escapeUrl($block->getCurrentUrl());
+$activeResources = $vendorVendorHelper->getRoleCollection();
+$resource = [];
+if (count($activeResources) > 0) {
+    foreach ($activeResources as $activeResource) {
+        $resource[] = $activeResource['resource_id'];
+    }
+}
+
+?>
+<?php if ($vendorVendorHelper->isVendorInfoAllowedInSidebar()): ?>
+    <div class="block account-nav block-collapsible-nav wk-mp-main">
+        <div class="title block-collapsible-nav-title" 
+        data-mage-init='{"toggleAdvanced": {"toggleContainers": "#block-collapsible-nav-seller", 
+            "selectorsToggleClass": "active"}}'>
+            <strong><?= /* @noEscape */ __('Marketplace'); ?></strong>
+        </div>
+        <div class="content block-collapsible-nav-content" id="block-collapsible-nav-seller">
+            <nav class="account-nav">
+                <ul class="nav items">
+                    <li class="nav item ">
+                        <strong><?= /* @noEscape */ __('Vendor Dashboard') ?></strong>
+                    </li>
+                    <li class="nav item <?= /* @noEscape */
+                            strpos($magentoCurrentUrl, 'vendor/products/manage')? "current":"";?>">
+                        <p><a href="<?= /* @escapeNotVerified */ $block->getProductsUrl() ?>">
+                            <?= /* @noEscape */ __('Manage Products') ?></a>
+                        </p>
+                    </li>
+                    <?php if ((in_array('all_user', $resource) || in_array('list_user', $resource))
+                     || $vendorVendorHelper->isAVendor()) { ?>
+                    <li class="nav item <?= /* @noEscape */
+                            strpos($magentoCurrentUrl, 'vendor/user')? "current":"";?>">
+                        <p>
+                            <a href="<?= /* @escapeNotVerified */ $block->getUsersUrl() ?>">
+                                <?= /* @noEscape */ __('Manage Users') ?>
+                            </a>
+                        </p>
+                    </li>
+                    <?php } ?>
+                    <?php if ((in_array('all_role', $resource) || in_array('list_role', $resource))
+                     || $vendorVendorHelper->isAVendor()) { ?>
+                    <li class="nav item <?= /* @noEscape */
+                            strpos($magentoCurrentUrl, 'vendor/role')? "current":"";?>">
+                        <p><a href="<?= /* @escapeNotVerified */ $block->getRolesUrl() ?>">
+                            <?= /* @noEscape */ __('Manage Roles') ?></a>
+                        </p>
+                    </li>
+                    <?php } ?>    
+                </ul>
+            </nav>
+        </div>
+    </div>
+<?php endif; ?>
