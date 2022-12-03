@@ -1,0 +1,48 @@
+<?php $singleData = $block->editOurData();?>
+<div id='page'>
+<div>
+    <h5 id='paragraph'>
+   All Creadits Go to <spain style=color:orange>Bluethink.Inc</spain>
+</h5>
+        </h4>
+    </div>
+    <div>
+        <?php if($singleData->getImage()): ?>
+            <img width="100" height="100" src="<?php echo $block->getBaseUrl().'media/bluethink/'.$singleData->getImage(); ?>">
+        <?php else: ?>
+            <p>No Image</p>
+        <?php endif; ?>
+    </div>
+    <h4>Testimonial</h4>
+    <h4>
+    <p >
+    Magento 2 is an open-source E-commerce platform, which is created by Roy Rubin and Yoav Kutner under Varien Inc. Magento was first released on March 31, 2007. It is a useful software for the online business, and currently a largest E-commerce platform in the world. Magento 2 is very simple, versatile, and quick to use
+    </p>
+
+    <p id='paragraph' >
+    E-commerce is a process of purchasing and selling of goods and services over the internet and transfers money and data to execute these transactions. E-commerce is also called as Electronic Commerce or Internet Commerce. It was first introduced in 1960 through EDI and VAN.
+    </p>
+
+    <p id='paragraph'>
+    Magento 2 is the most used CMS (Content Management System) to create online stores around the world by its powerful, scalable architecture. It is compatible with the latest technologies such as - PHP7 which means faster load time in comparison to Magento 1. Magento 2 allows the user to update the E-commerce website automatically.
+    </p>
+
+    <div>
+        <h3 id="name">Thanks & Regards</h3><br>
+        <p><?php echo $singleData->getName(); ?></p> 
+        <p><?php echo $singleData->getEmail(); ?></p> 
+        <p><?php echo $singleData->getRemarks(); ?></p> 
+    </div>
+
+    
+
+ <a style="float:left;" href="<?= $block->getUrl('testimonial/index/index') ?>" class="action primary">Back</a>
+ <a style="float:left;" href="<?= $block->getUrl('#') ?>" class="action primary">Print</a>
+
+</div>
+
+<!-- <style>
+#name{
+    color:'red';
+}
+</style> -->

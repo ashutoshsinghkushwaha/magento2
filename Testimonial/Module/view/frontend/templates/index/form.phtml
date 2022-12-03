@@ -1,0 +1,97 @@
+<?php
+$viewModel = $block->getViewModel();
+?>
+<form class="form testmonial" action="<?= $block->escapeUrl($block->getFormAction()) ?>" id="jobapply-form" method="post"
+    enctype="multipart/form-data" data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+    data-mage-init='{"validation":{}}'>
+    <fieldset class="fieldset">
+        <legend class="legend"><span><?= $block->escapeHtml(__('Write comment ask Us')) ?></span></legend><br />
+     
+        <div class="field name required">
+            <label class="label" for="name"><span><?= $block->escapeHtml(__('Name')) ?></span></label>
+            <div class="control">
+                <input name="name" id="name" title="<?= $block->escapeHtmlAttr(__('Name')) ?>"
+                    value="<?= $block->escapeHtmlAttr($viewModel->getUserName()) ?>" class="input-text" type="text" />
+            </div>
+        </div>
+        <div class="field email required">
+            <label class="label" for="email"><span><?= $block->escapeHtml(__('Email')) ?></span></label>
+            <div class="control">
+                <input name="email"
+                       id="email"
+                       title="<?= $block->escapeHtmlAttr(__('Email')) ?>"
+                       value="<?= $block->escapeHtmlAttr($viewModel->getUserEmail()) ?>"
+                       class="input-text"
+                       type="email"
+                       data-validate="{required:true}"
+                       
+                />
+            </div>
+        </div>
+
+        <div class="field file required">
+            <label class="label" for="telephone"><span><?= $block->escapeHtml(__('Upload Image of Customer')) ?></span></label>
+            <div class="Upload File">
+                <input name="image"id="Upload Image"
+                    title="<?= $block->escapeHtmlAttr(__('Image of Customer')) ?>"
+                    data-validate="{'required-file':true}"
+                    class="input-text"
+                    type="file"
+                    accept="image/*"/>
+            </div>
+        </div>
+       
+        <div class="field Score required">
+            <label class="score" for="score">
+                <span><?= $block->escapeHtml(__('Score')) ?></span>
+            </label>
+            <div class="control">
+                <?php $selectedExperience = $block->escapeHtmlAttr($viewModel->getUserExperience()) ?>
+                <select name="score" id="score" data-validate="{'validate-select':true}">
+                    <option value=""><?= $block->escapeHtml(__('-- Please Select --')) ?></option>
+                    <option value="1" <?= ($selectedExperience == 1) ? 'selected' : '' ?>>1</option>
+                    <option value="2" <?= ($selectedExperience == 2) ? 'selected' : '' ?>>2</option>
+                    <option value="3" <?= ($selectedExperience == 3) ? 'selected' : '' ?>>3</option>
+                    <option value="4" <?= ($selectedExperience == 4) ? 'selected' : '' ?>>4</option>
+                    <option value="5" <?= ($selectedExperience == 5) ? 'selected' : '' ?>>5</option>
+                </select>
+            </div>
+        </div>
+        
+         <div class="field Remarks required">
+            <label class="label" for="comment">
+                <span><?= $block->escapeHtml(__('Remarks')) ?></span>
+            </label>
+            <div class="control">
+                <textarea name="remarks"
+                          id="remarks"
+                          title="<?= $block->escapeHtmlAttr(__('Remarks')) ?>"
+                          value="<?= $block->escapeHtmlAttr($viewModel->getUserRemarks()) ?>"
+                          class="input-text"
+                          cols="5"
+                          rows="3"
+                          data-validate="{required:true}">
+                </textarea>
+            </div>
+         </div>
+    
+        <?= $block->getChildHtml('form.additional.info') ?>
+    </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <input type="hidden" name="hideit" id="hideit" value="" />
+            <button type="submit" title="<?= $block->escapeHtmlAttr(__('Submit')) ?>" class="action submit primary">
+            <span><?= $block->escapeHtml(__('Submit')) ?></span>
+            </button>
+        </div>
+    </div>
+</form>
+<script type="text/x-magento-init">
+    {
+"*": {
+"Magento_Customer/js/block-submit-on-send": {
+"formId": "jobapply-form"
+}
+}
+}
+</script>

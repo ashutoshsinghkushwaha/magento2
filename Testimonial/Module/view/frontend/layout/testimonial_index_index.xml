@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+   <!-- <head>
+      <css src="Testimonial_Module::css/customcss.css" />
+      <script src="Testimonial_Module::js/custom.js" />
+    </head> -->
+    <referenceContainer name="content">
+        <!-- <block class="Testimonial\Module\Block\Index" name="testimonial_index_index" template="Testimonial_Module::index.phtml" cacheable="false"/> -->
+
+         <container name="testimonial1" label="testimonial1" htmlTag="div" htmlClass="testimonial1" >
+      <block class="Testimonial\Module\Block\Index" name="testimonial1_index_index" template="Testimonial_Module::index.phtml" cacheable="false"/>
+      <block class="Testimonial\Module\Block\Edit" name="testimonial_index_index" template="Testimonial_Module::view.phtml" cacheable="false"/>
+      </block>
+      </container>
+
+      <container name="testimonial2" label="testimonial2" htmlTag="div" htmlClass="testimonial2" >
+      <block class="Testimonial\Module\Block\Edit" name="testimonial_index_index" template="Testimonial_Module::view.phtml" cacheable="false"/></container>
+
+      <container name="testimonial3" label="testimonial3" htmlTag="div" htmlClass="testimonial3" >
+      <block class="Testimonial\Module\Block\Insert" name="Testimonial_index_insert" template="Testimonial_Module::insert.phtml">
+        <arguments>
+                       <argument name="view_model" xsi:type="object">Testimonial\Module\ViewModel\UserDataProvider
+                       </argument>
+        </arguments>
+    </block></container>
+    </referenceContainer>
+
+    
+
+     <referenceContainer name="sidebar.additional">
+        <container name="div.sidebar1.main" htmlTag="div" htmlClass="sidebar1 sidebar-main" after="main">
+            <container name="sidebar1.main" as="sidebar1_main" label="Sidebar1 Main">
+
+            <!-- <referenceBlock name="header.links"> -->
+            <block class="Magento\Framework\View\Element\Html\Link\Current"  name="testimonial_sidebar">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Testimonial </argument>
+                    <argument name="path" xsi:type="string">testimonial</argument>
+                </arguments>
+            </block>
+        <!-- </referenceBlock> -->
+
+        </container>
+        </container>
+        
+    </referenceContainer>
+
+</page>

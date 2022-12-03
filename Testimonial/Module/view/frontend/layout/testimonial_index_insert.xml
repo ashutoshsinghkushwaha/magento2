@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+     xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" layout="2columns-left">
+     <head>
+        <title>Testominal</title>
+    </head>
+
+    <referenceContainer name="content">
+        <block class="Testimonial\Module\Block\Insert" name="Testimonial_index_insert" template="Testimonial_Module::insert.phtml">
+        <arguments>
+                       <argument name="view_model" xsi:type="object">Testimonial\Module\ViewModel\UserDataProvider
+                       </argument>
+        </arguments>
+    </block>
+    </referenceContainer>
+</page>

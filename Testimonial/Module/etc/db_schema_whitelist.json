@@ -1,0 +1,40 @@
+{
+    "testmonial": {
+        "column": {
+            "id": true,
+            "name": true,
+            "email": true,
+            "phone": true,
+            "created_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "bluethink_testimonial": {
+        "column": {
+            "id": true,
+            "image": true,
+            "name": true,
+            "remarks": true,
+            "score": true,
+            "created_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "bluethink_testimonial_new": {
+        "column": {
+            "id": true,
+            "image": true,
+            "name": true,
+            "remarks": true,
+            "score": true,
+            "created_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

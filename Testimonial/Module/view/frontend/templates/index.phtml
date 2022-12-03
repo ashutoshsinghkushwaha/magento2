@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View</title>
+</head>
+<body>
+<a class="action primary" href="<?= $block->getUrl('testimonial/index/insert'); ?>">Add New Record +</a><br><br>
+
+<div id='link'>
+    <a class="action primary" id="link"  href="">Pop Test</a><br><br>
+</div>
+
+<table border="1px">
+    <tr>
+        <th class='heading'><?= __('Id'); ?></th>
+        <th class='heading'><?= __('Image '); ?></th>
+        <th class='heading'><?= __('Name'); ?></th>
+        <th class='heading'><?= __('Email'); ?></th>
+        <th class='heading'><?= __('Score'); ?></th>
+        <th class='heading'><?= __('Remarks'); ?></th>
+        <th colspan="3" class='heading'><?= __('Action'); ?></th>
+    </tr>
+    <?php
+    $id=0;
+        $collectionData = $block->getCollection();
+        foreach($collectionData as $collection):
+            $id++;
+    ?>
+    <tr>
+         <td><?php echo $id ?></td>
+         <td>  <img src="<?php echo $block->getBaseUrl().'media/bluethink/'.$collection->getImage(); ?>" alt="Avatar" style="width:200px"></td>
+        <td><?= $collection->getName(); ?></td>
+        <td><?= $collection->getEmail(); ?></td>
+        <td><?= $collection->getScore(); ?></td>
+        <td><?= $collection->getRemarks(); ?></td>
+        <td>
+            <a href="<?= $block->getUrl('testimonial/index/edit').'id/'.$collection->getId(); ?>" class="action primary">Edit</a>
+        </td>
+        <td>
+            <a href="<?= $block->getUrl('testimonial/index/delete').'?id='.$collection->getId(); ?>" class="action primary"id="delete" onclick="return confirm('Are you sure you want to delete this Record?');">Delete</a>
+        </td>
+        <td>
+            <a href="<?= $block->getUrl('testimonial/index/view').'?id='.$collection->getId(); ?>" class="action primary">View</a>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+</table>
+</body>
+</html>
+
+<script type="text/x-magento-init">
+{
+"*": {
+"Testimonial_Module/js/newjs": {
+"divId": "link"
+}
+}
+}
+</script>
